@@ -61,14 +61,13 @@ var categoriasListaPt = [
   "Batidos",
   "Cafetaria",
   "Extras",
-  "Hamburgueres",
 ];
 
 var vinhosTipo = ["Vinhos Brancos", "Vinhos Tintos", "Vinhos Verdes"];
 
 var body = document.body;
 
-var jsonPt = "https://acepipe.pt/static/scripts/bilingual_precario.json";
+var jsonPt = "https://acepipe.pt/static/scripts/precarioPT.json";
 
 var scrollIcon = document.createElement("i");
 scrollIcon.setAttribute("class", "bi bi-arrow-up");
@@ -222,7 +221,11 @@ function index() {
     append.append(icon);
   }
   // LinkedIn
-  socialIcons("https://rebrand.ly/filipemartins", "bi bi-linkedin", socials);
+  socialIcons(
+    "https://rebrand.ly/filipemartins",
+    "bi bi-linkedin",
+    socials
+  );
   // Instagram
   socialIcons(
     "https://www.instagram.com/acepipe.algarve/",

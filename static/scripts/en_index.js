@@ -1,3 +1,31 @@
+var jsonSandbox =
+  "https://sandbox.acepipe.pt/static/scripts/precarioSandbox.json";
+var categoriasListaEn = [
+  "Pastry",
+  "Toasts and Bread",
+  "Sandwiches",
+  "Salads",
+  "English Breakfast",
+  "Bacon Rolls",
+  "Drinks",
+  "Natural Fruit Juices",
+  "Smoothies",
+  "Alcoholic Beverages",
+  "Cocktails",
+  "Tapas",
+  "Wines",
+  "Ice Cream Balls",
+  "Ice Cream Bowls",
+  "Crepes",
+  "Pancakes",
+  "Acepipe Special",
+  "Bubble Waffles",
+  "Waffles",
+  "Milkshakes",
+  "Cafetaria",
+  "Extras",
+];
+
 const cafeCocktailObj = [
   {
     categorias: [
@@ -37,39 +65,10 @@ const cafeCocktailObj = [
   },
 ];
 
-var categoriasListaPt = [
-  "Pastelaria",
-  "Tostas e Torradas",
-  "Sandes",
-  "Saladas",
-  "Pequeno Almoço Inglês",
-  "Bacon Rolls",
-  "Bebidas",
-  "Sumos Naturais de Fruta",
-  "Smoothies",
-  "Cocktails",
-  "Bebidas Espirituosas",
-  "Tapas",
-  "Vinhos",
-  "Gelados Bola",
-  "Taças de Gelado",
-  "Crepes",
-  "Panquecas",
-  "Acepipe Special",
-  "Bubble Waffles",
-  "Waffles",
-  "Batidos",
-  "Cafetaria",
-  "Extras",
-  "Hamburgueres",
-];
-
-var vinhosTipo = ["Vinhos Brancos", "Vinhos Tintos", "Vinhos Verdes"];
-
 var body = document.body;
+var vinhosTipo = ["White Wines", "Red Wines", "Green Wines"];
 
-var jsonPt = "https://acepipe.pt/static/scripts/bilingual_precario.json";
-
+var jsonEn = "https://en.acepipe.pt/static/scripts/precarioEN.json";
 var scrollIcon = document.createElement("i");
 scrollIcon.setAttribute("class", "bi bi-arrow-up");
 var scrollToTopBtn = document.createElement("button");
@@ -129,16 +128,13 @@ function categoriasPrecario(append) {
   let navBarLink, navBarLinkUl, navBarLinkLi;
 
   navBarLinkUl = document.createElement("ul");
-  navBarLinkUl.setAttribute(
-    "class",
-    "navbar-link-ul p-2 align-items-center hstack gap-1"
-  );
+  navBarLinkUl.setAttribute("class", "navbar-link-ul p-2 hstack gap-1");
 
-  for (let l = 0; l < categoriasListaPt.length; l++) {
-    const link = categoriasListaPt[l];
+  for (let l = 0; l < categoriasListaEn.length; l++) {
+    const link = categoriasListaEn[l];
 
     navBarLinkLi = document.createElement("li");
-    navBarLinkLi.setAttribute("class", "navbar-link-li mx-auto rounded p-1");
+    navBarLinkLi.setAttribute("class", "navbar-link-+li mx-auto rounded p-1");
     navBarLink = document.createElement("a");
     navBarLink.setAttribute("class", "navbar-link text-lg fst-italic ");
     navBarLink.setAttribute("href", "#" + "section" + l);
@@ -207,10 +203,7 @@ function index() {
   footer = document.createElement("footer");
   let socials = document.createElement("div");
   let legals = document.createElement("div");
-  legals.setAttribute(
-    "class",
-    "text-md text-center fst-italic text-center footer-text"
-  );
+  legals.setAttribute("class", "text-md fst-italic text-center footer-text");
   let legalsText = document.createElement("p");
 
   function socialIcons(link, cl, append) {
@@ -222,7 +215,11 @@ function index() {
     append.append(icon);
   }
   // LinkedIn
-  socialIcons("https://rebrand.ly/filipemartins", "bi bi-linkedin", socials);
+  socialIcons(
+    "https://rebrand.ly/filipemartins",
+    "bi bi-linkedin",
+    socials
+  );
   // Instagram
   socialIcons(
     "https://www.instagram.com/acepipe.algarve/",
@@ -236,43 +233,49 @@ function index() {
     "d-flex p-2 footer rounded justify-content-center gap-2 align-middle fs-3"
   );
   footer.setAttribute("id", "footer");
+  // appends
   body.append(navBar);
+
   body.append(navTabUl, subBody);
   navBar.append(navBarContent);
   navBarContent.append(navBarContentChild);
 
-  langPick(subBody);
+  langPick(navTabUl);
   navTabUl.append(darkModeBtn);
   categoriasPrecario(navTabUl);
   navTabUl.append(helpIcon);
-  precarioAcepipe(jsonPt, categoriasListaPt);
-
+  // precarioAcepipe(jsonSandbox, categoriasListaEn);
+  precarioAcepipe(jsonEn, categoriasListaEn);
   body.append(footer);
 
   footer.append(legals, socials);
   legals.append(legalsText);
-  legalsText.innerText = "As imagens são meramente ilustrativas";
+  legals.innerText = "The presented images are merely illustrative.";
 }
 
 function langPick(appendTo) {
-  let langEnLink, langDiv;
+  let langDiv, langPtLink, langHeader, langPtImage;
   // div idioma
-  langDiv = document.createElement("div");
-  langDiv.setAttribute("class", "text-center my-3");
+
   // bandeira inglesa
-  langEnLink = document.createElement("a");
-  langEnLink.setAttribute("href", "https://en.acepipe.pt");
-  langEnLink.setAttribute(
+  langPtLink = document.createElement("a");
+  langPtLink.setAttribute("href", "https://acepipe.pt");
+  langPtLink.setAttribute(
     "title",
-    "Ao clicar nesta ligação irá abrir uma versão deste site em inglês"
+    "Clicking this link will open up the portuguese version of this website"
   );
-  langEnLink.setAttribute(
-    "class",
-    "btn btn-lg btn-danger rounded fs-5 fw-bold shadow"
-  );
-  langEnLink.innerText = "View in English";
-  langDiv.append(langEnLink);
-  appendTo.append(langDiv);
+  langPtLink.setAttribute("class", "p-2");
+
+  langPtImage = document.createElement("img");
+  langPtImage.setAttribute("class", "lang-flag rounded");
+  langPtImage.setAttribute("src", "/static/img/pt.svg");
+  langPtImage.setAttribute("title", "Portuguese Flag");
+
+  appendTo.append(langPtLink);
+  langPtLink.append(langPtImage);
+
+  // btn para dar reload a pagina
+  // criar 2 paginas diferentes ...acepipe.pt/foo.bar (fazer ficheiro index para isso)
 }
 // Escolher Linguas
 // variavel é o "foo" em foo.append(bar) counter = variavel em incremento (i++)
@@ -288,10 +291,7 @@ async function precarioAcepipe(json, array) {
     "class",
     "transparent border-0 mt-2 container-precario"
   );
-  precarioContainer.setAttribute(
-    "title",
-    "Espaço onde irá aparecer todas as páginas do preçário"
-  );
+  precarioContainer.setAttribute("title", "Landing page for the menu");
 
   subBody.append(precarioContainer);
 
@@ -318,10 +318,7 @@ async function precarioAcepipe(json, array) {
     card.setAttribute("class", "card mb-8 rounded shadow shadow-sm ");
 
     card.setAttribute("id", "cardPrecario");
-    card.setAttribute(
-      "title",
-      "Este espaço é o equivalente a uma página de um menu"
-    );
+    card.setAttribute("title", "Menu page");
 
     header.setAttribute(
       "class",
@@ -330,7 +327,7 @@ async function precarioAcepipe(json, array) {
     header.setAttribute("id", "section" + i);
     header.setAttribute(
       "title",
-      "Titulo de uma categoria que contem vários produtos."
+      "Category title of which contains a list of products"
     );
 
     headerDiv.setAttribute("class", "container");
@@ -339,11 +336,12 @@ async function precarioAcepipe(json, array) {
     cardBody.setAttribute("class", "card-body transparent border-0");
     cardBody.setAttribute("id", "card-" + catText);
     // SE NAO HOUVER IMAGENS PARA A CAT
+
     if (
-      array[i] === "Bebidas Espirituosas" ||
-      array[i] === "Vinhos" ||
+      array[i] === "Alcoholic Beverages" ||
+      array[i] === "Wines" ||
       array[i] === "Extras" ||
-      array[i] === "Saladas" ||
+      array[i] === "Salads" ||
       array[i] === "Cocktails" ||
       array[i] === "Smoothies"
     ) {
@@ -358,11 +356,6 @@ async function precarioAcepipe(json, array) {
         "card-img-top border-0 mx-auto d-block cat-image"
       );
 
-      if (catText.startsWith("taças")) {
-        catText = catText.replace("taças", "tacas");
-      } else if (catText.endsWith("pequeno almoço inglês")) {
-        catText = "pequeno almoco ingles";
-      }
       let catImageHref = "/static/img/" + catText + ".jpg";
       catImage.setAttribute("src", catImageHref);
       card.append(catImage);
@@ -373,7 +366,7 @@ async function precarioAcepipe(json, array) {
     }
     //   traduzir
 
-    if (catText == "vinhos") {
+    if (catText === "wines") {
       card.setAttribute("class", "card mb-8 transparent rounded");
       card.setAttribute("style", "border-bottom-width: 2px;");
       const SubCatWines = () => {
@@ -437,7 +430,7 @@ async function precarioAcepipe(json, array) {
 
         subDivCafe.append(subCatCafe);
         postDiv.append(subDivCafe);
-        subCatCafe.innerText = textPt;
+        subCatCafe.innerText = textEn;
 
         for (let i = 0; i < objProds.length; i++) {
           const unit = objProds[i];
@@ -462,7 +455,7 @@ async function precarioAcepipe(json, array) {
             "Produtos disponiveis para venda ao publico."
           );
 
-          itemName.innerText = prodTextPt;
+          itemName.innerText = prodTextEn;
           //
           let itemPrice = document.createElement("p");
           itemPrice.setAttribute(
@@ -504,14 +497,14 @@ async function precarioAcepipe(json, array) {
     precarioContainer.append(card);
     header.innerText = catText;
   }
-
   // se as categorias estiverem postas
 
   if (categoriaNoRepeat.length == array.length) {
     for (let y = 0; y < data[2].data.length; y++) {
-      if (data[2].data[y].categoria == "Granizados") {
+      if (data[2].data[y].categoria == "Slushy") {
         continue;
       }
+
       let tempDiv = document.getElementById(data[2].data[y].categoria);
       let prodDiv = document.createElement("div");
       prodDiv.setAttribute("class", "mt-3 container");
@@ -534,34 +527,38 @@ async function precarioAcepipe(json, array) {
       let prodFind = data[2].data[y].nome.toLowerCase();
       // traduzir
 
-      let prodText = data[2].data[y].nome;
-      let priceText = data[2].data[y].preco;
+      prodText = data[2].data[y].nome;
+      priceText = data[2].data[y].preco;
 
-      // sangrias na sub categoria delas
-      if (prodFind.startsWith("sangria de vinho")) {
+      // sub categorias de vinhos
+      if (prodFind.startsWith("sangria de")) {
         let divSangria = document.getElementById("sangria");
         divSangria.append(prodDiv);
         let sang = prodText.slice("sangria de".length);
         prod.innerText = sang;
-      }
-      // sub categorias de vinhos
-      else if (prodFind.endsWith("(branco)")) {
-        // branco
-        let brancoDiv = document.getElementById(vinhosTipo[0]);
-        brancoDiv.append(prodDiv);
-        let bra = prodText.substr(0, prodText.length - "(branco)".length);
+      } else if (prodFind.endsWith("(white)")) {
+        // white
+        let whiteDiv = document.getElementById(vinhosTipo[0]);
+        whiteDiv.append(prodDiv);
+        let bra = prodText.substr(0, prodText.length - "(White)".length);
         prod.innerText = bra;
-      } else if (prodFind.search("(tinto)") >= 1) {
-        // tinto
-        let tintoDiv = document.getElementById(vinhosTipo[1]);
-        let tin = prodText.substr(0, prodText.length - "(tinto)".length);
-        tintoDiv.append(prodDiv);
+      } else if (prodFind.endsWith("(dry white)")) {
+        // white
+        let whiteDiv = document.getElementById(vinhosTipo[0]);
+        whiteDiv.append(prodDiv);
+        let dry = prodText.substr(0, prodText.length - "(Dry White)".length);
+        prod.innerText = dry + "(Dry)";
+      } else if (prodFind.endsWith("(red)")) {
+        // red
+        let redDiv = document.getElementById(vinhosTipo[1]);
+        let tin = prodText.substr(0, prodText.length - "(Red)".length);
+        redDiv.append(prodDiv);
         prod.innerText = tin;
-      } else if (prodFind.search("(verde)") >= 1) {
-        // verde
-        let verdeDiv = document.getElementById(vinhosTipo[2]);
-        let ver = prodText.substr(0, prodText.length - "(verde)".length);
-        verdeDiv.append(prodDiv);
+      } else if (prodFind.endsWith("(green)")) {
+        // green
+        let greenDiv = document.getElementById(vinhosTipo[2]);
+        let ver = prodText.substr(0, prodText.length - "(Green)".length);
+        greenDiv.append(prodDiv);
         prod.innerText = ver;
       } else {
         // qualquer outro vinho
@@ -573,7 +570,7 @@ async function precarioAcepipe(json, array) {
 
       let igredientesText = data[2].data[y].igredientes;
       if (data[2].data[y].igredientes.length != 0) {
-        let igredientes = document.createElement("div");
+        igredientes = document.createElement("div");
         igredientes.setAttribute(
           "class",
           "container transparent border-0 flex text-wrap flex-grow text-start fw-light fst-italic"
@@ -593,8 +590,11 @@ async function precarioAcepipe(json, array) {
         price.innerText = priceText;
       }
     }
+
+    // function aqui
   }
 }
+
 index();
 body.append(scrollToTopBtn);
 window.onscroll = function () {
